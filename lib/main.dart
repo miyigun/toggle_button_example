@@ -32,7 +32,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<bool> _selections = List.generate(3, (index) => false);
+  final List<bool> _selections = List.generate(3, (_)=>false );
+
+  var txtBold   = FontWeight.normal;
+  var txtItalic = FontStyle.normal;
+  var txtUnder  = TextDecoration.none;
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +47,53 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ToggleButtons(
-              isSelected: _selections,
-              onPressed: (int index) {
+              isSelected:_selections,
+              onPressed:(int index){
                 setState(() {
                   _selections[index]=!_selections[index];
+
+                  if(index==0 && _selections[index]){
+                    txtBold=FontWeight.bold;
+                  }
+                  else if(index==0 && !_selections[index]){
+                    txtBold=FontWeight.normal;
+                  }
+
+                  if(index==1 && _selections[index]){
+                    txtItalic=FontStyle.italic;
+                  }
+                  else if(index==1 && !_selections[index]){
+                    txtItalic=FontStyle.normal;
+                  }
+
+                  if(index==2 && _selections[index]){
+                    txtUnder=TextDecoration.underline;
+                  }
+                  else if(index==2 && !_selections[index]){
+                    txtUnder=TextDecoration.none;
+                  }
+
                 });
               },
-              children: const [
+              color:Colors.teal,
+              fillColor:Colors.deepPurple,
+              children: const <Widget>[
                 Icon(Icons.format_bold),
                 Icon(Icons.format_italic),
                 Icon(Icons.format_underlined),
               ],
             ),
+            Text(
+              "This Is A Simple Text,Press Buttons Up And See What Gonna Happen",
+              style:TextStyle(
+                fontWeight:txtBold,
+                fontStyle:txtItalic,
+                decoration:txtUnder,
+              ),
+            )
           ],
         ),
       ),
